@@ -1,6 +1,6 @@
 package com.usergems.meetingenrichment.email.model;
 
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,9 +14,11 @@ public class Email {
     private String email;
     @Column(columnDefinition = "LONGTEXT")
     private String content;
-    @UpdateTimestamp
     @Column(name = "sent_at")
     private LocalDateTime sentAt;
+
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
 
     public Email() {
     }
@@ -28,5 +30,9 @@ public class Email {
 
     public boolean hasContent() {
         return content != null && !content.isBlank();
+    }
+
+    public void send() {
+        this.sentAt = LocalDateTime.now();
     }
 }

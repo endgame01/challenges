@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class PersonDataService {
 
@@ -32,6 +34,7 @@ public class PersonDataService {
     @Value(value = "${person-data-api.cache-days:7}")
     private int cacheInDays;
 
+    @Transactional
     public PersonDataDTO getPersonData(String email) {
         PersonDataDTO fromCache = getFromCache(email);
 
@@ -59,7 +62,7 @@ public class PersonDataService {
         if (fromClient != null) {
             log.debug("Saving person data on cache - {}", email);
             fromClient.setEmail(email);
-            personDataCacheRepository.save(modelMapper.map(fromClient, PersonDataCache.class));
+            personDataCacheRepository.saveAndFlush(modelMapper.map(fromClient, PersonDataCache.class));
         }
         return fromClient;
     }

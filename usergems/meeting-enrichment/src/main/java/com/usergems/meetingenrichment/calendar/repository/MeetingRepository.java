@@ -25,6 +25,16 @@ public interface MeetingRepository extends PagingAndSortingRepository<Meeting, L
             "group by acc.email, cust_acc.email", nativeQuery = true)
     List<MeetingCountProjection> findCustomerMeetingCount(String userMail);
 
+
+    @Query(value = "    SELECT acc.email userMail, cust_acc.email customerEmail, sum(1) customerMeetingCount   " +
+            "        FROM USER_ACCEPTED_MEETINGS acc   " +
+            "        join USER_ACCEPTED_MEETINGS cust_acc   " +
+            "        where acc.meeting_id = cust_acc.meeting_id   " +
+            "        and acc.email like '%usergems%'   " +
+            "        and not cust_acc.email like '%usergems%'   " +
+            "        group by acc.email, cust_acc.email", nativeQuery = true)
+    List<MeetingCountProjection> findCustomerMeetingCount();
+
     interface MeetingCountProjection {
         String getUserMail();
 

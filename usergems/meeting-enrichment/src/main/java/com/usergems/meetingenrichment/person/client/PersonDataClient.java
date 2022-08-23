@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 /**
  * Paid external API
  */
-@FeignClient(name = "PersonDataClient", url = "${person-data-api.url}")
+@FeignClient(name = "PersonDataClient", url = "${base-api.url}")
 public interface PersonDataClient {
 
     @GetMapping(value = "/person/{email}", consumes = "application/json", produces = "application/json")

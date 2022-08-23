@@ -1,8 +1,8 @@
 package com.usergems.meetingenrichment.email.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.usergems.meetingenrichment.email.dto.CompanyInternalDTO;
-import com.usergems.meetingenrichment.email.dto.PersonDataInternalDTO;
+import com.usergems.meetingenrichment.person.dto.CompanyDTO;
+import com.usergems.meetingenrichment.person.dto.PersonDataDTO;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -15,9 +15,9 @@ public class MailContent {
     private String title;
     private List<String> userGemsAttendees;
 
-    private CompanyInternalDTO customerCompany;
-    private List<PersonDataInternalDTO> customerAccepted;
-    private List<PersonDataInternalDTO> customerRejected;
+    private CompanyDTO customerCompany;
+    private List<PersonDataDTO> customerAccepted;
+    private List<PersonDataDTO> customerRejected;
 
     public String getStartTime() {
         return startTime;
@@ -59,17 +59,17 @@ public class MailContent {
         this.userGemsAttendees = userGemsAttendees;
     }
 
-    public CompanyInternalDTO getCustomerCompany() {
+    public CompanyDTO getCustomerCompany() {
         return customerCompany;
     }
 
-    public void setCustomerCompany(CompanyInternalDTO customerCompany) {
+    public void setCustomerCompany(CompanyDTO customerCompany) {
         this.customerCompany = customerCompany;
     }
 
     public void setCustomerCompany() {
         var customerCOmpany = Stream.concat(getCustomerAccepted().stream(), getCustomerRejected().stream())
-                .findFirst().map(PersonDataInternalDTO::getCompany)
+                .findFirst().map(PersonDataDTO::getCompany)
                 .orElse(null);
         setCustomerCompany(customerCOmpany);
 
@@ -77,20 +77,19 @@ public class MailContent {
         getCustomerRejected().forEach(c -> c.setCompany(null));
     }
 
-    public List<PersonDataInternalDTO> getCustomerAccepted() {
+    public List<PersonDataDTO> getCustomerAccepted() {
         return customerAccepted;
     }
 
-    public void setCustomerAccepted(List<PersonDataInternalDTO> customerAccepted) {
+    public void setCustomerAccepted(List<PersonDataDTO> customerAccepted) {
         this.customerAccepted = customerAccepted;
     }
 
-    public List<PersonDataInternalDTO> getCustomerRejected() {
+    public List<PersonDataDTO> getCustomerRejected() {
         return customerRejected;
     }
 
-    public void setCustomerRejected(List<PersonDataInternalDTO> customerRejected) {
-        customerRejected.forEach(c -> c.setMeetingCount(c.getMeetingCount() + 1));
+    public void setCustomerRejected(List<PersonDataDTO> customerRejected) {
         this.customerRejected = customerRejected;
     }
 }

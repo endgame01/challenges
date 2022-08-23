@@ -46,6 +46,8 @@ public class PersonDataCache {
     }
 
     public boolean isExpired(int days) {
+        if(updateDateTime == null)
+            return createDateTime.plusDays(days).isBefore(LocalDateTime.now());
         return updateDateTime.plusDays(days).isBefore(LocalDateTime.now());
     }
 

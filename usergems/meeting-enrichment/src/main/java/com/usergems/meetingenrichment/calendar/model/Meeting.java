@@ -1,7 +1,5 @@
 package com.usergems.meetingenrichment.calendar.model;
 
-import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -15,11 +13,9 @@ public class Meeting {
 
     @Id
     @Column(name = "meeting_id")
-    @GeneratedValue
-    private Long meetingId;
+    private Long id;
     private String title;
 
-    @UpdateTimestamp
     @Column(name = "meeting_changed")
     private LocalDateTime changed;
 
@@ -61,12 +57,12 @@ public class Meeting {
         this.rejected.addAll(rejected);
     }
 
-    public Long getMeetingId() {
-        return meetingId;
+    public Long getId() {
+        return id;
     }
 
-    public void setMeetingId(Long meetingId) {
-        this.meetingId = meetingId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {

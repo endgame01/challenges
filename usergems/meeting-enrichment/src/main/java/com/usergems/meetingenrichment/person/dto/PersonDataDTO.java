@@ -18,6 +18,8 @@ public class PersonDataDTO {
     private String linkedinUrl;
     private CompanyDTO company;
 
+    private String meetings;
+
     public String getEmail() {
         return email;
     }
@@ -72,5 +74,13 @@ public class PersonDataDTO {
 
     public void setCompany(CompanyDTO company) {
         this.company = company;
+    }
+
+    public String getMeetings() {
+        return meetings;
+    }
+
+    public void setMeetings(String meetings) {
+        this.meetings = meetings;
     }
 }
